@@ -21,20 +21,10 @@ const ContactForm = () => {
 
   const onAddContact = contact => {
     const isInContacts = contacts.some(
-      ({ name }) => name.toLowerCase() === contact.name.toLowerCase()
+      ({ name }) => name.toLowerCase() === contact.name.toLowerCase().trim()
     );
     if (isInContacts) {
-      toast.warn(`${contact.name} is already in  contacts`, {
-        position: 'bottom-center',
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-      });
-      return;
+      return toast.warn(`${contact.name} is already in  contacts`);
     }
     dispatch(addContact(contact));
   };

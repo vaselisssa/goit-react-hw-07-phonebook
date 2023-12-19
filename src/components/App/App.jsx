@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MagnifyingGlass } from 'react-loader-spinner';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { fetchContacts } from '../../redux/operations';
@@ -16,8 +16,6 @@ const App = () => {
   const isLoading = useSelector(selectIsLoading);
   const error = useSelector(selectError);
 
-  console.log(error);
-
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
@@ -29,8 +27,9 @@ const App = () => {
       <SubTitle children="Contacts" />
       <Filter />
       {isLoading && <MagnifyingGlass />}
-      {error && <ToastContainer />}
+      {error && toast.error(error)}
       <ContactList />
+      <ToastContainer position="top-center" hideProgressBar theme="colored" />
     </Container>
   );
 };
